@@ -1,5 +1,8 @@
 Revision history for Perl module WWW::Gazetteer::Calle: 
 
+0.13 Mon Oct 21 20:29:52 BST 2002
+	- update docs and tests to reflect new WWW::Gazetteer factory
+
 0.12 Sat Oct 19 12:02:46 BST 2002
 	- after discussion with Philippe "BooK" Bruhat, have renamed
 	  the module to WWW::Gazetteer::Calle and this is the first

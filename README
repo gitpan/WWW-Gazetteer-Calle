@@ -2,8 +2,8 @@ NAME
     WWW::Gazetteer::Calle - Find location of world towns and cities
 
 SYNOPSYS
-      use WWW::Gazetteer::Calle;
-      my $g = WWW::Gazetteer::Calle->new();
+      use WWW::Gazetteer;
+      my $g = WWW::Gazetteer::Calle->new('calle');
       my @londons = $g->find(UK => 'London');
       my $london = $londons[0];
       print $london->{longitude}, ", ", $london->{latitude}, "\n";
@@ -16,9 +16,10 @@ DESCRIPTION
     http://www.calle.com/world/ to return geographical location (longitude,
     latitude, elevation) for towns and cities in countries in the world.
 
-    Once you have imported the module and created a gazetteer object,
-    calling find($country => $town) will return a list of hashrefs with
-    longitude and latitude information.
+    This module is a subclass of "WWW::Gazetteer", so you must use that to
+    create a "WWW::Gazetteer::Calle" object. Once you have imported the
+    module and created a gazetteer object, calling find($country => $town)
+    will return a list of hashrefs with longitude and latitude information.
 
       my @londons = $g->find(UK => 'London');
       my $london = $londons[0];
@@ -46,13 +47,13 @@ METHODS
     This returns a new WWW::Gazetteer::Calle object. It currently has no
     arguments:
 
-      use WWW::Gazetteer::Calle;
-      my $g = WWW::Gazetteer::Calle->new();
+      use WWW::Gazetteer;
+      my $g = WWW::Gazetteer->new('calle');
 
   find()
 
     The find method looks up geographical information and returns it to you.
-    It takes in a city and a country, with the recommended syntax being ISO
+    It takes in a country and a city, with the recommended syntax being ISO
     3166 code and city name. However, it also tries to do what you mean.
 
     Note that there may be more than one town or city with that name in the

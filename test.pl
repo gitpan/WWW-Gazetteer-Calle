@@ -2,9 +2,9 @@
 use strict;
 use Test::More tests => 7;
 
-BEGIN { use_ok( 'WWW::Gazetteer::Calle' ); }
+BEGIN { use_ok( 'WWW::Gazetteer' ); }
 
-my $g = WWW::Gazetteer::Calle->new();
+my $g = WWW::Gazetteer->new('calle');
 is_deeply($g->find("London", "United Kingdom")->[0], {
   longitude => "-0.1167",
   latitude => "51.5000",
