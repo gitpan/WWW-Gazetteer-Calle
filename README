@@ -1,0 +1,116 @@
+NAME
+    WWW::Gazetteer::Calle - Find location of world towns and cities
+
+SYNOPSYS
+      use WWW::Gazetteer::Calle;
+      my $g = WWW::Gazetteer::Calle->new();
+      my @londons = $g->find(UK => 'London');
+      my $london = $londons[0];
+      print $london->{longitude}, ", ", $london->{latitude}, "\n";
+      my $nice = $g->find("Nice", "France")->[0];
+      print $nice->{city}, ", ", $nice->{elevation}, "\n";
+
+DESCRIPTION
+    A gazetteer is a geographical dictionary (as at the back of an atlas).
+    The "WWW::Gazetteer::Calle" module uses the information at
+    http://www.calle.com/world/ to return geographical location (longitude,
+    latitude, elevation) for towns and cities in countries in the world.
+
+    Once you have imported the module and created a gazetteer object,
+    calling find($country => $town) will return a list of hashrefs with
+    longitude and latitude information.
+
+      my @londons = $g->find(UK => 'London');
+      my $london = $londons[0];
+      print $london->{longitude}, ", ", $london->{latitude}, "\n";
+      # prints -0.1167, 51.5000
+
+    The hashref for London actually looks like this:
+
+      $london = {
+        longitude => "-0.1167",
+        latitude  => "51.5000",
+        city      => 'London',
+        country   => 'UK',
+        elevation => "14",
+      };
+
+    The city and country values are the same as the ones you used. The
+    elevation is elevation above sea level in meters. The longitude and
+    latitude are in degrees, ranging from -180 to 180 where (0, 0) is on the
+    Prime Meridian and the equator.
+
+METHODS
+  new()
+
+    This returns a new WWW::Gazetteer::Calle object. It currently has no
+    arguments:
+
+      use WWW::Gazetteer::Calle;
+      my $g = WWW::Gazetteer::Calle->new();
+
+  find()
+
+    The find method looks up geographical information and returns it to you.
+    It takes in a city and a country, with the recommended syntax being ISO
+    3166 code and city name. However, it also tries to do what you mean.
+
+    Note that there may be more than one town or city with that name in the
+    country. You will get a list of hashrefs for each town/city.
+
+      my @londons = $g->find("UK" => "London");
+      my @londons = $g->find("United Kingdom" => "London");
+      my @londons = $g->find("London", "United Kingdom");
+
+    The following countries are valid (as are their ISO 3166 codes):
+    Afghanistan, Albania, Algeria, Andorra, Angola, Anguilla, Antigua and
+    Barbuda, Argentina, Armenia, Ashmore and Cartier Islands, Australia,
+    Austria, Azerbaijan, Bahamas, The, Bahrain, Bangladesh, Barbados,
+    Belarus, Belgium, Belize, Benin, Bhutan, Bolivia, Bosnia and
+    Herzegovina, Botswana, Bouvet Island, Brazil, British Indian Ocean
+    Territory, British Virgin Islands, Brunei, Bulgaria, Burkina Faso,
+    Burma, Burundi, Cambodia, Cameroon, Canada, Cape Verde, Cayman Islands,
+    Central African Republic, Chad, Chile, China, Clipperton Island, Cocos
+    (Keeling) Islands, Colombia, Congo, Cook Islands, Coral Sea Islands,
+    Costa Rica, Croatia, Cuba, Cyprus, Czech Republic, Côte d'Ivoire,
+    Denmark, Djibouti, Dominica, Dominican Republic, Ecuador, Egypt, El
+    Salvador, Equatorial Guinea, Eritrea, Estonia, Ethiopia, Europa Island,
+    Falkland Islands (Islas Malvinas), Fiji, Finland, France, Gabon, Gambia,
+    The, Georgia, Republic of, Germany, Ghana, Gibraltar, Glorioso Islands,
+    Greece, Grenada, Guatemala, Guernsey, Guinea, Guinea-Bissau, Guyana,
+    Haiti, Heard Island and McDonald Islands, Honduras, Hong Kong, Hungary,
+    Iceland, India, Indonesia, Iran, Iraq, Ireland, Isle of Man, Israel,
+    Italy, Jamaica, Japan, Jersey, Jordan, Juan de Nova Island, Kazakhstan,
+    Kenya, Kiribati, Kuwait, Kyrgyzstan, Laos, Latvia, Lebanon, Lesotho,
+    Liberia, Libya, Liechtenstein, Lithuania, Luxembourg, Macau, Macedonia,
+    The Former Yugoslav Republic of, Madagascar, Malawi, Malaysia, Maldives,
+    Mali, Malta, Marshall Islands, Mauritania, Mauritius, Mayotte, Mexico,
+    Moldova, Monaco, Mongolia, Montenegro, Montserrat, Morocco, Mozambique,
+    Namibia, Naoero, Nepal, Netherlands, New Zealand, Nicaragua, Niger,
+    Nigeria, Niue, Norfolk Island, North Korea, Norway, Oman, Pakistan,
+    Panama, Papua New Guinea, Paraguay, Peru, Philippines, Pitcairn Islands,
+    Poland, Portugal, Qatar, Romania, Russia, Rwanda, Saint Kitts and Nevis,
+    Saint Lucia, Saint Vincent and the Grenadines, Samoa, San Marino, Sao
+    Tome and Principe, Saudi Arabia, Senegal, Serbia, Seychelles, Sierra
+    Leone, Singapore, Slovakia, Slovenia, Solomon Islands, Somalia, South
+    Africa, South Georgia and the South Sandwich Islands, South Korea,
+    Spain, Sri Lanka, Sudan, Suriname, Swaziland, Sweden, Switzerland,
+    Syria, Taiwan, Tajikistan, Tanzania, Thailand, Togo, Tokelau, Tonga,
+    Trinidad and Tobago, Tristan da Cunha, Tromelin Island, Tunisia, Turkey,
+    Turkmenistan, Turks and Caicos Islands, Tuvalu, Uganda, Ukraine, United
+    Arab Emirates, United Kingdom, Uruguay, Uzbekistan, Vanuatu, Vatican
+    City, Venezuela, Vietnam, Western Sahara, Yemen, Zambia, Zimbabwe.
+
+    Note that there may be bugs in the Calle database. Do not rely on this
+    module for navigation.
+
+COPYRIGHT
+    Copyright (C) 2002, Leon Brocard
+
+    This module is free software; you can redistribute it or modify it under
+    the same terms as Perl itself.
+
+AUTHOR
+    Leon Brocard, acme@astray.com. Based upon ideas and code by Nathan
+    Bailey.
+
